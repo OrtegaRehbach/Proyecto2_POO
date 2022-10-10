@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-//hola
 public class Usuario {
     private String name;
     private String password;
@@ -11,7 +10,27 @@ public class Usuario {
         this.contactosEmergencia = new ArrayList<>();
     }
 
-    public String getName() {
-        return this.name;
+    public Usuario() {
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ArrayList<Contacto> getContactosEmergencia() {
+        return this.contactosEmergencia;
+    }
+
+    public void setContactosEmergencia(ArrayList<Contacto> contactosEmergencia) {
+        this.contactosEmergencia = contactosEmergencia;
+    }
+
 }
