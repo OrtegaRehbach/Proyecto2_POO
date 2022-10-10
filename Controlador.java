@@ -38,4 +38,9 @@ public class Controlador {
     public void agregarUsuario(String name, String password) {
         this.usuariosRegistrados.add(new Usuario(name, password));
     }
+
+    public void IngresarContactoEmergencia(String nombre,long numero,Usuario usuario ){
+        Contacto contacto= new Contacto(nombre,numero);
+        usuario.getContactosEmergencia().add(contacto);
+    }
 }
