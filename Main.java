@@ -10,6 +10,7 @@ public class Main {
         while (!exit) {
             System.out.println(DIVIDER);
             System.out.print("Ingrese una opcion: ");
+            System.out.print("Ingrese una opcion: ");
             String input = sc.next();
             switch (input) {
                 case "1":
