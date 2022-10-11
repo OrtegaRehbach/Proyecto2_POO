@@ -9,8 +9,16 @@ public class Main {
         
         while (!exit) {
             System.out.println(DIVIDER);
-            System.out.print("Ingrese una opcion: ");
-            System.out.print("Ingrese una opcion: ");
+            System.out.println("Ingrese una opcion: ");
+            System.out.println("1. Crear de Perfil");
+            System.out.println("2. **SOS**"); //para el mensaje de texto de auxilio con ubicación
+            System.out.println("3. Actualizar datos de contacto de Emergencia para SOS");
+            System.out.println("4. Mostrar servicios de emergencia");
+            System.out.println("5. Información Primeros Auxilios");
+
+            System.out.println("7. Salir del Programa");
+
+
             String input = sc.next();
             switch (input) {
                 case "1":
@@ -31,7 +39,7 @@ public class Main {
                 case "6":
                     System.out.println("Se ingreso la opcion " + input);
                     break;
-                case "Salir":
+                case "7":
                     System.out.println("Se ingreso la opcion " + input);
                     exit = true;
                     System.out.println(DIVIDER);
