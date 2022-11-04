@@ -11,6 +11,9 @@ public class Usuario {
     }
 
     public Usuario() {
+        this.name = "User";
+        this.password = "password";
+        this.contactosEmergencia = new ArrayList<>();
     }
 
     public String getName() {
@@ -35,6 +38,15 @@ public class Usuario {
 
     public void setContactosEmergencia(ArrayList<Contacto> contactosEmergencia) {
         this.contactosEmergencia = contactosEmergencia;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " name='" + getName() + "'" +
+            ", password='" + getPassword() + "'" +
+            ", contactosEmergencia='" + getContactosEmergencia() + "'" +
+            "}";
     }
 
 }

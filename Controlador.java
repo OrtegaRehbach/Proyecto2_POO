@@ -6,6 +6,12 @@ public class Controlador {
     ServicioEmergencia[] serviciosEmergencia;
     int passwordLenght = 6;
 
+    public Controlador() {
+        this.usuariosRegistrados = new ArrayList<>();
+        this.infoPrimerosAuxilios = new InfoPrimerosAuxilios[5];
+        this.serviciosEmergencia = new ServicioEmergencia[5];
+    }
+    
     public boolean validarDatosUsuario(String name, String password) {
         if (this.usuariosRegistrados.size() != 0) {
             if (validarNombreUsuario(name)) {
@@ -35,12 +41,28 @@ public class Controlador {
         return (password.length() >= passwordLenght) && (!password.contains(" "));
     }
 
-    public void agregarUsuario(String name, String password) {
-        this.usuariosRegistrados.add(new Usuario(name, password));
+    public boolean agregarUsuario(String name, String password) {
+        return this.usuariosRegistrados.add(new Usuario(name, password));
     }
 
     public void IngresarContactoEmergencia(String nombre,long numero,Usuario usuario ){
         Contacto contacto= new Contacto(nombre,numero);
         usuario.getContactosEmergencia().add(contacto);
+    }
+
+    public ArrayList<Usuario> getUsuariosRegistrados() {
+        return usuariosRegistrados;
+    }
+
+    public InfoPrimerosAuxilios[] getInfoPrimerosAuxilios() {
+        return infoPrimerosAuxilios;
+    }
+
+    public ServicioEmergencia[] getServiciosEmergencia() {
+        return serviciosEmergencia;
+    }
+
+    public int getPasswordLenght() {
+        return passwordLenght;
     }
 }

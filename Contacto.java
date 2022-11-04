@@ -26,4 +26,12 @@ public class Contacto {
     }
 
 
+    @Override
+    public String toString() {
+        return "{" +
+            " nombre='" + getNombre() + "'" +
+            ", numero='" + getNumero() + "'" +
+            "}";
+    }
+
 }
