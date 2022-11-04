@@ -42,7 +42,7 @@ public class Main {
                     
                     System.out.print("Ingresar nombre de contacto: ");
                     nombre = sc.next();
-                    System.out.print("Ingrese numero de contacto: ");
+                     System.out.print("Ingrese numero de contacto: ");
                     long numero = sc.nextLong();
                     controlador.IngresarContactoEmergencia(nombre, numero, controlador.getUsuariosRegistrados().get(0));
                     for (Contacto contacto : controlador.getUsuariosRegistrados().get(0).getContactosEmergencia()) {
@@ -51,6 +51,36 @@ public class Main {
                     break;
                 case "4":
                     System.out.println("Se ingreso la opcion " + input);
+                    System.out.println("Llamar a la Policia Nacional Civil (1): ");
+                    System.out.println("Llamar a Bomberos Municipales (2)");
+                    System.out.println("Llamae Bomberos Voluntarios (3)");
+                    System.out.println("Llamar a Ambulancia de IGSS (4)");
+                    System.out.println("Llamar a atencion de violencia domestica (5)");
+                    int opcion= sc.nextInt();
+                    switch(opcion){
+                        case 1:
+                        System.out.println("Llamando a PNC...");
+                        break;
+
+                        case 2:
+                        System.out.println("Llamando a Bomberos Municipales...");
+                        break;
+
+                        case 3:
+                        System.out.println("Llamando a Bomberos Voluntarios....");
+                        break;
+
+                        case 4:
+                        System.out.println("Llamando a Ambulancia de IGSS...");
+                        break;
+
+                        case 5:
+                        System.out.println("Llamar a atencion de violencia domestica...");
+            
+                    }
+                    
+
+
                     break;
                 case "5":
                     System.out.println("Se ingreso la opcion " + input);

@@ -22,10 +22,6 @@ public class Usuario {
         this.contactosEmergencia = new ArrayList<>();
     }
 
-    public String getName() {
-        return this.name;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
