@@ -2,8 +2,6 @@ public class Contacto {
     private String nombre;
     private long numero;
 
-    public Contacto() {
-    }
 
     public Contacto(String nombre, long numero) {
         this.nombre = nombre;
@@ -27,5 +25,13 @@ public class Contacto {
         this.numero = numero;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " nombre='" + getNombre() + "'" +
+            ", numero='" + getNumero() + "'" +
+            "}";
+    }
 
 }
