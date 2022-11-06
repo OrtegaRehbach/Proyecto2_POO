@@ -50,6 +50,12 @@ public class Controlador {
         usuario.getContactosEmergencia().add(contacto);
     }
 
+    public InfoPrimerosAuxilios CrearInfoPrimerosAuxilios(String categoria){
+        InfoPrimerosAuxilios ObjetoInfo = new InfoPrimerosAuxilios();
+        ObjetoInfo.Category(categoria);
+        return(ObjetoInfo);
+    }
+
     public ArrayList<Usuario> getUsuariosRegistrados() {
         return usuariosRegistrados;
     }

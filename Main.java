@@ -84,6 +84,37 @@ public class Main {
                     break;
                 case "5":
                     System.out.println("Se ingreso la opcion " + input);
+                    System.out.println("1) Asfixia \n2)Desmayo \n3)Fracturas\n 4)Quemadura");
+                    opcion=sc.nextInt();
+                    switch(opcion){
+                        case 1:
+                        InfoPrimerosAuxilios ObjetoInfo =controlador.CrearInfoPrimerosAuxilios("Asfixia");
+                        ObjetoInfo.ReturnInfo("Asfixia", ObjetoInfo);
+                        System.out.println(ObjetoInfo.getInfo());
+                        break;
+
+                        case 2:
+                        InfoPrimerosAuxilios ObjetoInfo1 =controlador.CrearInfoPrimerosAuxilios("Desmayo");
+                        ObjetoInfo1.ReturnInfo("Desmayo", ObjetoInfo1);
+                        System.out.println(ObjetoInfo1.getInfo());
+                        break;
+
+                        case 3:
+                        InfoPrimerosAuxilios ObjetoInfo2= controlador.CrearInfoPrimerosAuxilios("Fracturas");
+                        ObjetoInfo2.ReturnInfo("Fracturas", ObjetoInfo2);
+                        System.out.println(ObjetoInfo2.getInfo());
+                        break;
+    
+                        case 4:
+                        InfoPrimerosAuxilios ObjetoInfo3= controlador.CrearInfoPrimerosAuxilios("Quemadura");
+                        ObjetoInfo3.ReturnInfo("Quemadura", ObjetoInfo3);
+                        System.out.println(ObjetoInfo3.getInfo());
+                        break;
+
+                        default:
+                        System.out.println("Ingrese una opción valida");
+                    }
+
                     break;
                 case "6":
                     System.out.println("Se ingreso la opcion " + input);
