@@ -10,31 +10,33 @@ public class Controlador {
         this.usuariosRegistrados = new ArrayList<>();
         this.infoPrimerosAuxilios = new InfoPrimerosAuxilios[5];
         this.serviciosEmergencia = new ServicioEmergencia[5];
+        this.infoPrimerosAuxilios[0] = new InfoPrimerosAuxilios("Categoria", "Aca va la info de un servicio de primeros auxilios");
     }
     
     public boolean validarDatosUsuario(String name, String password) {
         if (this.usuariosRegistrados.size() != 0) {
             if (validarNombreUsuario(name)) {
-                agregarUsuario(name, password);
                 return true;
             } else {
                 return false;
             }
         }
         if (validarPasswordUsuario(password)) {
-            agregarUsuario(name, password);
             return true;
         }
         return false;
     }
 
     public boolean validarNombreUsuario(String name) {
-        for (Usuario usuario : this.usuariosRegistrados) {
-            if (usuario.getName().equals(name)) {
+        if (getNombresUsuarioRegistrados() != null) {
+            if (getNombresUsuarioRegistrados().contains(name)) {
                 return false;
+            } else {
+                return true;
             }
+        } else {
+            return true;
         }
-        return true;
     }
 
     public boolean validarPasswordUsuario(String password) {
@@ -70,5 +72,17 @@ public class Controlador {
 
     public int getPasswordLenght() {
         return passwordLenght;
+    }
+
+    public ArrayList<String> getNombresUsuarioRegistrados() {
+        if (!usuariosRegistrados.isEmpty()) {
+            ArrayList<String> userNames = new ArrayList<String>();
+            for (int i = 0; i < usuariosRegistrados.size(); i++) {
+                userNames.add(usuariosRegistrados.get(i).getName());
+            }
+            return userNames;
+        } else {
+            return null;
+        }
     }
 }
