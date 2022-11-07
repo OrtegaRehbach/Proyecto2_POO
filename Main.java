@@ -84,7 +84,7 @@ public class Main {
                     break;
                 case "5":
                     System.out.println("Se ingreso la opcion " + input);
-                    System.out.println("1) Asfixia \n2)Desmayo \n3)Fracturas\n 4)Quemadura");
+                    System.out.println("1)Asfixia\n2)Desmayo\n3)Fracturas\n4)Quemadura");
                     opcion=sc.nextInt();
                     switch(opcion){
                         case 1:
