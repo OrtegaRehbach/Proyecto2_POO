@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class Main {
@@ -9,8 +10,36 @@ public class Main {
 
         boolean exit = true;
 
-        FileHandler fHandler = new FileHandler();
-        fHandler.createCSVFile("test_file.csv");
+        FileHandler fh = new FileHandler();
+        File testFile = new File("data/user_data.csv");
+        System.out.println(DIVIDER);
+        System.out.println("File exists?: " + testFile.exists());
+        System.out.println("Reading data...");
+        String[] data = fh.readDataFromCSVFile(testFile);
+        System.out.println("From read data:");
+        for (String string : data) {
+            System.out.println(string);
+        }
+
+        System.out.println(DIVIDER);
+        System.out.println("Appending data...");
+        boolean result = fh.appendDataToCSVFile(testFile, "Loquillo,pass,None");
+        System.out.println("Result of appending data: " + result);
+        data = fh.readDataFromCSVFile(testFile);
+        System.out.println("From read data:");
+        for (String string : data) {
+            System.out.println(string);
+        }
+
+        System.out.println(DIVIDER);
+        System.out.println("Appending data...");
+        result = fh.appendDataToCSVFile(testFile, new Usuario("Usuario1", "contrasenia"));
+        System.out.println("Result of appending data: " + result);
+        data = fh.readDataFromCSVFile(testFile);
+        System.out.println("From read data:");
+        for (String string : data) {
+            System.out.println(string);
+        }
         
         while (!exit) {
             System.out.println(DIVIDER);
