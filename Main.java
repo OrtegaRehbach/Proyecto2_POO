@@ -8,39 +8,14 @@ public class Main {
 
         Controlador controlador = new Controlador();
 
-        boolean exit = true;
+        boolean exit = false;
 
         FileHandler fh = new FileHandler();
-        File testFile = new File("data/user_data.csv");
-        System.out.println(DIVIDER);
-        System.out.println("File exists?: " + testFile.exists());
-        System.out.println("Reading data...");
-        String[] data = fh.readDataFromCSVFile(testFile);
-        System.out.println("From read data:");
-        for (String string : data) {
-            System.out.println(string);
-        }
-
-        System.out.println(DIVIDER);
-        System.out.println("Appending data...");
-        boolean result = fh.appendDataToCSVFile(testFile, "Loquillo,pass,None");
-        System.out.println("Result of appending data: " + result);
-        data = fh.readDataFromCSVFile(testFile);
-        System.out.println("From read data:");
-        for (String string : data) {
-            System.out.println(string);
-        }
-
-        System.out.println(DIVIDER);
-        System.out.println("Appending data...");
-        result = fh.appendDataToCSVFile(testFile, new Usuario("Usuario1", "contrasenia"));
-        System.out.println("Result of appending data: " + result);
-        data = fh.readDataFromCSVFile(testFile);
-        System.out.println("From read data:");
-        for (String string : data) {
-            System.out.println(string);
-        }
+        File userDataFile = fh.createCSVFile("data/user_data.csv");
         
+        // Cargar datos del archivo user_data.csv
+        controlador.agregarUsuario(fh.getUserListFromCSVFile(userDataFile));
+
         while (!exit) {
             System.out.println(DIVIDER);
             System.out.println("Aplicacion servicios de emergencia");
@@ -50,7 +25,7 @@ public class Main {
             System.out.println("3. Actualizar datos de contacto de Emergencia para SOS");
             System.out.println("4. Mostrar servicios de emergencia");
             System.out.println("5. Informacion Primeros Auxilios");
-            System.out.println("6. Opcion 6");
+            System.out.println("6. [DEBUG] Ver todos los usuarios registrados");
             System.out.println("7. Salir del Programa");
             System.out.println(DIVIDER);
             System.out.print("Ingrese una opcion: ");
@@ -65,12 +40,10 @@ public class Main {
 
                     if (controlador.validarDatosUsuario(nombre, password)) {
                         controlador.agregarUsuario(nombre, password);
+                        fh.appendDataToCSVFile(userDataFile, new Usuario(nombre, password));
                         System.out.println("Se agrego el usuario \"" + nombre + "\" existosamente.");
                     } else {
                         System.out.println("El nombre de usuario o contrasena no son validos.");
-                    }
-                    for (Usuario usuario : controlador.getUsuariosRegistrados()) {
-                        System.out.println(usuario.toString());
                     }
                     break;
 
@@ -168,7 +141,9 @@ public class Main {
                     break;
 
                 case "6":
-                    System.out.println("Se ingreso la opcion " + input);
+                    for (Usuario usuario : controlador.getUsuariosRegistrados()) {
+                        System.out.println(usuario.toString());
+                    }
                     break;
 
                 case "7":

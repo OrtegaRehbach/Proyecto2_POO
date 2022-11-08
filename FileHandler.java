@@ -1,10 +1,8 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class FileHandler {
@@ -61,18 +59,34 @@ public class FileHandler {
         return appendDataToCSVFile(file, userDataToCSVString(user));
     }
 
-    private String userDataToCSVString(Usuario user) {
-        String csvString = "";
-        csvString += user.getName() + ",";
-        csvString += user.getPassword() + ",";
+    public String userDataToCSVString(Usuario user) {
+        StringBuilder csvString = new StringBuilder();
+        csvString.append(user.getName() + ",");
+        csvString.append(user.getPassword() + ",");
         if (!user.getContactosEmergencia().isEmpty()) {
             for (Contacto contacto : user.getContactosEmergencia()) {
-                csvString += contacto.getNombre() + ",";
-                csvString += contacto.getNumero() + ",";
+                csvString.append(contacto.getNombre() + ",");
+                csvString.append(contacto.getNumero() + ",");
             }
+            csvString.deleteCharAt(csvString.toString().length() - 1);
         } else {
-            csvString += "None";
+            csvString.append("None");
         }
-        return csvString;
+        return csvString.toString();
+    }
+
+    public ArrayList<Usuario> getUserListFromCSVFile(File file) {
+        ArrayList<Usuario> userList = new ArrayList<Usuario>();
+        for (String line : readDataFromCSVFile(file)) {
+            String[] values = line.trim().split(",");
+            ArrayList<Contacto> contactos = new ArrayList<Contacto>();
+            if (values[2] != "None" && values.length > 3) {
+                for (int i = 2; i < values.length; i += 2) {
+                    contactos.add(new Contacto(values[i], Long.parseLong(values[i + 1])));
+                }
+            }
+            userList.add(new Usuario(values[0], values[1], contactos.toArray(new Contacto[contactos.size()])));
+        }
+        return userList;
     }
 }

@@ -10,16 +10,23 @@ public class Usuario {
         this.contactosEmergencia = new ArrayList<>();
     }
 
-
-    public String getName() {
-        return this.name;
+    public Usuario(String name, String password, Contacto... contactos) {
+        this.name = name;
+        this.password = password;
+        this.contactosEmergencia = new ArrayList<Contacto>();
+        for (Contacto contacto : contactos) {
+            this.contactosEmergencia.add(contacto);
+        }
     }
-
 
     public Usuario() {
         this.name = "User";
         this.password = "password";
         this.contactosEmergencia = new ArrayList<>();
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public void setName(String name) {
@@ -40,6 +47,14 @@ public class Usuario {
 
     public void setContactosEmergencia(ArrayList<Contacto> contactosEmergencia) {
         this.contactosEmergencia = contactosEmergencia;
+    }
+
+    public boolean agregarContactoEmergencia(Contacto contacto) {
+        return this.contactosEmergencia.add(contacto);
+    }
+
+    public boolean agregarContactoEmergencia(String nombre, long numero) {
+        return this.agregarContactoEmergencia(new Contacto(nombre, numero));
     }
 
     @Override

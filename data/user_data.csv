@@ -1,2 +1,6 @@
+admin,admin,None
+testUser1,password,None
+testUser2,password,Contacto1,12345678,Contacto2,11111111 
 Loquillo,pass,None
 Usuario1,contrasenia,None
+PruebaUsuario,pruebapassword,None

@@ -43,8 +43,16 @@ public class Controlador {
         return (password.length() >= passwordLenght) && (!password.contains(" "));
     }
 
+    public boolean agregarUsuario(Usuario usuario) {
+        return this.usuariosRegistrados.add(usuario);
+    }
+    
     public boolean agregarUsuario(String name, String password) {
-        return this.usuariosRegistrados.add(new Usuario(name, password));
+        return agregarUsuario(new Usuario(name, password));
+    }
+
+    public boolean agregarUsuario(ArrayList<Usuario> usuarios) {
+        return this.usuariosRegistrados.addAll(usuarios);
     }
 
     public void IngresarContactoEmergencia(String nombre,long numero,Usuario usuario ){
