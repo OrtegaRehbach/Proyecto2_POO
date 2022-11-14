@@ -34,7 +34,7 @@ public class FileHandler {
     public boolean writeDataToCSVFile(File file, String data) {
         try {
             FileWriter fWriter = new FileWriter(file);
-            fWriter.write(data + "\n");
+            fWriter.write(data);
             fWriter.close();
             return true;
         } catch (IOException e) {
