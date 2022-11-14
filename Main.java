@@ -48,7 +48,8 @@ public class Main {
                     break;
 
                 case "2":
-                    System.out.println("Se ingreso la opcion " + input);
+                    System.out.println("¡SOS necesito ayuda lo mas pronto posible!");
+                    System.out.println("Se ha enviado un mensaje de auxilio y su ubicacion a su lista de contactos de emergencia.");
                     break;
 
                 case "3":
