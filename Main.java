@@ -3,18 +3,21 @@ import java.util.Scanner;
 
 public class Main {
     private static String DIVIDER = "----------------------------------------------------";
+    private static char NL = '\n';
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
         Controlador controlador = new Controlador();
 
-        boolean exit = false;
+        boolean exit = true;
 
         FileHandler fh = new FileHandler();
         File userDataFile = fh.createCSVFile("data/user_data.csv");
         
         // Cargar datos del archivo user_data.csv
         controlador.agregarUsuario(fh.getUserListFromCSVFile(userDataFile));
+
+        autenticarUsuario(sc, controlador, userDataFile, fh);
 
         while (!exit) {
             System.out.println(DIVIDER);
@@ -159,6 +162,62 @@ public class Main {
             }   
         }
         sc.close();
+    }
+
+    private static void autenticarUsuario(Scanner sc, Controlador controlador, File userDataFile, FileHandler fh) {
+        
+        boolean exit = false;
+        while (!exit) {
+            System.out.println(
+                DIVIDER + NL + 
+                "Login" + NL +
+                DIVIDER + NL +
+                "1. Iniciar sesion" + NL + 
+                "2. Crear usuario" + NL + 
+                "3. Salir" + NL + 
+                DIVIDER
+            );
+            System.out.print("Ingrese una opcion: ");
+            String input = sc.next();
+            switch (input) {
+                case "1":
+                    System.out.print("Ingrese nombre de usuario: ");
+                    String nombre = sc.next();
+                    System.out.print("Ingrese contrasena: ");
+                    String password = sc.next();
+                    if (controlador.autenticarUsuario(nombre, password)) {
+                        System.out.println("Se inicio sesion como \"" + nombre + "\"");
+                    } else {
+                        System.out.println("El nombre de usuario o contrasena ingresados no son validos.");
+                    }
+                    break;
+                case "2":
+                    System.out.print("Ingrese nombre de usuario: ");
+                    nombre = sc.next();
+                    System.out.print("Ingrese contrasena: ");
+                    password = sc.next();
+
+                    if (controlador.validarDatosUsuario(nombre, password)) {
+                        controlador.agregarUsuario(nombre, password);
+                        fh.appendDataToCSVFile(userDataFile, new Usuario(nombre, password));
+                        System.out.println("Se agrego el usuario \"" + nombre + "\" existosamente.");
+                    } else {
+                        System.out.println("El nombre de usuario o contrasena no son validos.");
+                    }
+                    break;
+                case "3":
+                exit = true;
+                    System.out.println(DIVIDER);
+                    System.out.println("Gracias por usar el programa");
+                    System.out.println(DIVIDER);
+                    break;
+            
+                default:
+                    System.out.println("Ingrese una opcion valida.");
+                    break;
+            }
+        }
+        
     }
 
 }

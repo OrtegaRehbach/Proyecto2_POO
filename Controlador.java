@@ -93,4 +93,17 @@ public class Controlador {
             return null;
         }
     }
+
+    public boolean autenticarUsuario(String nombre, String password) {
+        if (!usuariosRegistrados.isEmpty()) {
+            for (Usuario usuario : this.usuariosRegistrados) {
+                if (usuario.getName().equals(nombre) && usuario.getPassword().equals(password)) {
+                    return true;
+                }
+            }
+            return false;
+        } else {
+            return false;
+        }
+    }
 }
