@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     private static String DIVIDER = "----------------------------------------------------";
+    private static char NL = '\n';
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -16,11 +17,15 @@ public class Main {
         // Cargar datos del archivo user_data.csv
         controlador.agregarUsuario(fh.getUserListFromCSVFile(userDataFile));
 
+        // Se pide inicio de sesion o creacion de usuario
+        autenticarUsuario(sc, controlador, userDataFile, fh);
+
         while (!exit) {
             System.out.println(DIVIDER);
             System.out.println("Aplicacion servicios de emergencia");
+            System.out.println("Conectado como: \"" + controlador.getNameUsuarioActual() + "\"");
             System.out.println(DIVIDER);
-            System.out.println("1. Crear de Perfil");
+            System.out.println("1. [DEBUG] Ver contactos");
             System.out.println("2. **SOS**"); //para el mensaje de texto de auxilio con ubicación
             System.out.println("3. Actualizar datos de contacto de Emergencia para SOS");
             System.out.println("4. Mostrar servicios de emergencia");
@@ -33,17 +38,9 @@ public class Main {
             System.out.println(DIVIDER);
             switch (input) {
                 case "1":
-                    System.out.print("Ingrese nombre de usuario: ");
-                    String nombre = sc.next();
-                    System.out.print("Ingrese contrasena: ");
-                    String password = sc.next();
-
-                    if (controlador.validarDatosUsuario(nombre, password)) {
-                        controlador.agregarUsuario(nombre, password);
-                        fh.appendDataToCSVFile(userDataFile, new Usuario(nombre, password));
-                        System.out.println("Se agrego el usuario \"" + nombre + "\" existosamente.");
-                    } else {
-                        System.out.println("El nombre de usuario o contrasena no son validos.");
+                    System.out.println("CONTACTOS:");
+                    for (Contacto contacto : controlador.getUsuarioActual().getContactosEmergencia()) {
+                        System.out.println(contacto.toString());
                     }
                     break;
 
@@ -54,13 +51,11 @@ public class Main {
 
                 case "3":
                     System.out.print("Ingresar nombre de contacto: ");
-                    nombre = sc.next();
-                     System.out.print("Ingrese numero de contacto: ");
+                    String nombre = sc.next();
+                    System.out.print("Ingrese numero de contacto: ");
                     long numero = sc.nextLong();
-                    controlador.IngresarContactoEmergencia(nombre, numero, controlador.getUsuariosRegistrados().get(0));
-                    for (Contacto contacto : controlador.getUsuariosRegistrados().get(0).getContactosEmergencia()) {
-                        System.out.println(contacto.toString());
-                    }
+                    controlador.IngresarContactoEmergencia(nombre, numero, controlador.getUsuarioActual());
+                    controlador.updateUserDataFile(userDataFile, fh);
                     break;
 
                 case "4":
@@ -149,6 +144,8 @@ public class Main {
 
                 case "7":
                     exit = true;
+                    controlador.cerrarSesion();
+                    controlador.updateUserDataFile(userDataFile, fh);
                     System.out.println(DIVIDER);
                     System.out.println("Gracias por usar el programa");
                     System.out.println(DIVIDER);
@@ -160,6 +157,67 @@ public class Main {
             }   
         }
         sc.close();
+    }
+
+    // Funcion para autenticar usuarios
+    private static void autenticarUsuario(Scanner sc, Controlador controlador, File userDataFile, FileHandler fh) {
+        boolean exit = false;
+        while (!exit) {
+            System.out.println(
+                DIVIDER + NL + 
+                "Login" + NL +
+                DIVIDER + NL +
+                "1. Iniciar sesion" + NL + 
+                "2. Crear usuario" + NL + 
+                "3. Salir" + NL + 
+                DIVIDER
+            );
+            System.out.print("Ingrese una opcion: ");
+            String input = sc.next();
+            switch (input) {
+                case "1":
+                    System.out.print("Ingrese nombre de usuario: ");
+                    String nombre = sc.next();
+                    System.out.print("Ingrese contrasena: ");
+                    String password = sc.next();
+                    if (controlador.esUsuarioRegistrado(nombre, password)) {
+                        controlador.iniciarSesion(nombre);
+                        System.out.println("Se inicio sesion como \"" + nombre + "\"");
+                        exit = true;
+                    } else {
+                        System.out.println("El nombre de usuario o contrasena ingresados no son validos.");
+                    }
+                    break;
+                case "2":
+                    System.out.print("Ingrese nombre de usuario: ");
+                    nombre = sc.next();
+                    System.out.print("Ingrese contrasena: ");
+                    password = sc.next();
+
+                    if (controlador.validarDatosUsuario(nombre, password)) {
+                        controlador.agregarUsuario(nombre, password);
+                        fh.appendDataToCSVFile(userDataFile, new Usuario(nombre, password));
+                        controlador.iniciarSesion(nombre);
+                        System.out.println("Se agrego el usuario \"" + nombre + "\" existosamente.");
+                        exit = true;
+                    } else {
+                        System.out.println("El nombre de usuario o contrasena no son validos.");
+                    }
+                    break;
+                case "3":
+                    exit = true;
+                    controlador.cerrarSesion();
+                    System.out.println(DIVIDER);
+                    System.out.println("Gracias por usar el programa");
+                    System.out.println(DIVIDER);
+                    break;
+            
+                default:
+                    System.out.println("Ingrese una opcion valida.");
+                    break;
+            }
+        }
+        
     }
 
 }
