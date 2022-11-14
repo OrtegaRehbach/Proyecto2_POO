@@ -19,7 +19,7 @@ public class Main {
 
         // Se pide inicio de sesion o creacion de usuario
         autenticarUsuario(sc, controlador, userDataFile, fh);
-
+        exit = !controlador.haySesionIniciada();
         while (!exit) {
             System.out.println(DIVIDER);
             System.out.println("Aplicacion servicios de emergencia");
