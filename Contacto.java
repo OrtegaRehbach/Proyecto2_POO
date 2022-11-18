@@ -25,6 +25,9 @@ public class Contacto {
         this.numero = numero;
     }
 
+    public String getContactoString() {
+        return nombre + "\t" + numero;
+    }
 
     @Override
     public String toString() {

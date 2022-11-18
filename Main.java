@@ -25,9 +25,9 @@ public class Main {
             System.out.println("Aplicacion servicios de emergencia");
             System.out.println("Conectado como: \"" + controlador.getNameUsuarioActual() + "\"");
             System.out.println(DIVIDER);
-            System.out.println("1. [DEBUG] Ver contactos");
+            System.out.println("1. Ver contactos de emergencia");
             System.out.println("2. **SOS**"); //para el mensaje de texto de auxilio con ubicación
-            System.out.println("3. Actualizar datos de contacto de Emergencia para SOS");
+            System.out.println("3. Agregar contacto de emergencia");
             System.out.println("4. Mostrar servicios de emergencia");
             System.out.println("5. Informacion Primeros Auxilios");
             System.out.println("6. [DEBUG] Ver todos los usuarios registrados");
@@ -38,15 +38,32 @@ public class Main {
             System.out.println(DIVIDER);
             switch (input) {
                 case "1":
-                    System.out.println("CONTACTOS:");
+                    if (!controlador.getUsuarioActual().getContactosEmergencia().isEmpty()) {
+                        System.out.println(
+                        "Contactos de emergencia:" + NL + 
+                        DIVIDER + NL + 
+                        "   Nombre:\tNumero:"
+                    );
+                    int contactoCount = 0;
                     for (Contacto contacto : controlador.getUsuarioActual().getContactosEmergencia()) {
-                        System.out.println(contacto.toString());
+                        contactoCount++;
+                        System.out.println(contactoCount + ". " + contacto.getContactoString());
+                    }
+                    } else {
+                        System.out.println("No tiene contactos de emergencia registrados");
                     }
                     break;
 
                 case "2":
                     System.out.println("¡SOS necesito ayuda lo mas pronto posible!");
-                    System.out.println("Se ha enviado un mensaje de auxilio y su ubicacion a su lista de contactos de emergencia.");
+                    for (Contacto contacto : controlador.getUsuarioActual().getContactosEmergencia()) {
+                        System.out.println("Se ha enviado un mensaje de emergencia a \"" + contacto.getNombre() + "\"");
+                    }
+                    if (!controlador.getUsuarioActual().getContactosEmergencia().isEmpty()) {
+                        System.out.println("Se ha enviado un mensaje de auxilio y su ubicacion a su lista de contactos de emergencia.");    
+                    } else {
+                        System.out.println("No tiene contactos de emergencia registrados");
+                    }
                     break;
 
                 case "3":
@@ -59,38 +76,52 @@ public class Main {
                     break;
 
                 case "4":
-                    System.out.println("1. Llamar a la Policia Nacional Civil");
-                    System.out.println("2. Llamar a Bomberos Municipales");
-                    System.out.println("3. Llamar Bomberos Voluntarios");
-                    System.out.println("4. Llamar a Ambulancia de IGSS");
-                    System.out.println("5. Llamar a atencion de violencia domestica");
-                    System.out.println(DIVIDER);
-                    System.out.print("Ingrese una opcion: ");
-                    String opcion = sc.next();
-                    System.out.println(DIVIDER);
-                    switch(opcion){
-                        case "1":
-                            System.out.println("Llamando a PNC...");
-                            break;
-
-                        case "2":
-                            System.out.println("Llamando a Bomberos Municipales...");
-                            break;
-
-                        case "3":
-                            System.out.println("Llamando a Bomberos Voluntarios....");
-                            break;
-
-                        case "4":
-                            System.out.println("Llamando a Ambulancia de IGSS...");
-                            break;
-
-                        case "5":
-                            System.out.println("Llamando a atencion de violencia domestica...");
-                            break;
-
-                        default:
-                            System.out.println("Ingrese una opcion valida.");
+                    boolean exitOpcion4 = false;
+                    while (!exitOpcion4) {
+                        System.out.println("1. Llamar a la Policia Nacional Civil");
+                        System.out.println("2. Llamar a Bomberos Municipales");
+                        System.out.println("3. Llamar Bomberos Voluntarios");
+                        System.out.println("4. Llamar a Ambulancia de IGSS");
+                        System.out.println("5. Llamar a atencion de violencia domestica");
+                        System.out.println("6. Regresar al menu");
+                        System.out.println(DIVIDER);
+                        System.out.print("Ingrese una opcion: ");
+                        String opcion = sc.next();
+                        System.out.println(DIVIDER);
+                        switch(opcion){
+                            case "1":
+                                System.out.println("Llamando a PNC...");
+                                exitOpcion4 = true;
+                                break;
+    
+                            case "2":
+                                System.out.println("Llamando a Bomberos Municipales...");
+                                exitOpcion4 = true;
+                                break;
+    
+                            case "3":
+                                System.out.println("Llamando a Bomberos Voluntarios....");
+                                exitOpcion4 = true;
+                                break;
+    
+                            case "4":
+                                System.out.println("Llamando a Ambulancia de IGSS...");
+                                exitOpcion4 = true;
+                                break;
+    
+                            case "5":
+                                System.out.println("Llamando a atencion de violencia domestica...");
+                                exitOpcion4 = true;
+                                break;
+    
+                            case "6":
+                                exitOpcion4 = true;
+                                break;
+    
+                            default:
+                                System.out.println("Ingrese una opcion valida.");
+                                System.out.println(DIVIDER);
+                        }
                     }
                     break;
 
@@ -103,7 +134,7 @@ public class Main {
                     );
                     System.out.println(DIVIDER);
                     System.out.print("Ingrese una opcion: ");
-                    opcion = sc.next();
+                    String opcion = sc.next();
                     System.out.println(DIVIDER);
                     switch(opcion){
                         case "1":
